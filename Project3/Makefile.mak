@@ -1,12 +1,33 @@
+# CC = g++
+# CFLAGS = -Wall -Werror
+
+# all: loadbalancer
+
+# loadbalancer: main.o LoadBalancer.o WebServer.o
+#     $(CC) $(CFLAGS) -o loadbalancer main.o LoadBalancer.o WebServer.o
+
+# main.o: main.cpp
+#     $(CC) $(CFLAGS) -c main.cpp
+
+# LoadBalancer.o: LoadBalancer.cpp LoadBalancer.h WebServer.h Request.h
+#     $(CC) $(CFLAGS) -c LoadBalancer.cpp
+
+# WebServer.o: WebServer.cpp WebServer.h Request.h
+#     $(CC) $(CFLAGS) -c WebServer.cpp
+
+# clean:
+#     rm -f loadbalancer *.o
+
+
 CC = g++
-CFLAGS = -Wall -Werror
+CFLAGS = -Wall -Werror -std=c++17
 
-all: loadbalancer
+all: main
 
-loadbalancer: main.o LoadBalancer.o WebServer.o
-    $(CC) $(CFLAGS) -o loadbalancer main.o LoadBalancer.o WebServer.o
+main: main.o LoadBalancer.o WebServer.o
+    $(CC) $(CFLAGS) -o main main.o LoadBalancer.o WebServer.o
 
-main.o: main.cpp
+main.o: main.cpp LoadBalancer.h WebServer.h Request.h
     $(CC) $(CFLAGS) -c main.cpp
 
 LoadBalancer.o: LoadBalancer.cpp LoadBalancer.h WebServer.h Request.h
@@ -16,4 +37,4 @@ WebServer.o: WebServer.cpp WebServer.h Request.h
     $(CC) $(CFLAGS) -c WebServer.cpp
 
 clean:
-    rm -f loadbalancer *.o
+    rm -f *.o main
